@@ -10,8 +10,10 @@ const app = express();
 
 
 // import of routes
+const authRouter = require('./routes/api/auth');
 const newsRouter = require('./routes/api/news');
 const friendsRouter = require('./routes/api/our_friends');
+const usersRouter = require('./routes/api/users');
 
 // way of getting info
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
@@ -26,6 +28,8 @@ app.use(express.json())
 // create routes
 app.use('/api/news', newsRouter);
 app.use('/api/our_friends', friendsRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/users', usersRouter);
 
 
 
