@@ -4,9 +4,10 @@ const express = require('express');
 const router = express.Router();
 
 const { our_friends: ctrl } = require('../../controllers');
-const {validation, ctrlWrapper} = require("../../middleWares")
+const { validation, ctrlWrapper } = require('../../middleWares')
+const { joiSchema } = require('../../models/our_friend');
 
-router.get('/', ctrlWrapper(ctrl.getListOfFriends));
+router.get('/', validation(joiSchema), ctrlWrapper(ctrl.getListOfFriends));
 
 
 module.exports = router;
