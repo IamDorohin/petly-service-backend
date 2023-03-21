@@ -8,8 +8,11 @@ require("dotenv").config();
 const app = express();
 
 // import of routes
+
+const authRouter = require("./routes/api/auth");
 const newsRouter = require("./routes/api/news");
 const friendsRouter = require("./routes/api/our_friends");
+const usersRouter = require("./routes/api/users");
 const noticesRouter = require("./routes/api/notices");
 
 // way of getting info
@@ -23,8 +26,11 @@ app.use(cors());
 app.use(express.json());
 
 // create routes
+
 app.use("/api/news", newsRouter);
 app.use("/api/our_friends", friendsRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/users", usersRouter);
 app.use("/api/notices", noticesRouter);
 
 app.use((req, res) => {
