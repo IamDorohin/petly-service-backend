@@ -1,23 +1,36 @@
 const { Schema, model } = require("mongoose");
+const Joi = require("joi");
 
-const notices = Schema({
-  title: { type: String },
-  breed: { type: String },
-  place: { type: String },
-  age: { type: Number },
+const noticesSchema = Schema({
   category: {
     type: String,
     enum: ["sell", "lost-found", "for-free"],
     required: [true, "Category is required"],
   },
+  title: { type: String, required: [true, "Category is required"] },
+  name: { type: String },
+  birthdate: { type: Date },
+  breed: { type: String },
   sex: {
     type: String,
     enum: ["male", "female"],
     required: [true, "Sex is required"],
   },
+  location: { type: String, required: [true, "Category is required"] },
+  coments: { type: String },
+  imgUrl: { type: String },
+  price: { type: Number },
 });
 
-// create a model
-const Notices = model("notices", newsSchema);
+// const joiRegisterSchema = Joi.object({
+//   name: Joi.string().required(),
+//   email: Joi.string().required(),
+//   password: Joi.string().min(8).required(),
+//   city_region: Joi.string().required(),
+//   mobile_phone: Joi.string().min(10).required(),
+// });
 
-module.exports = News;
+// create a model
+const Notices = model("notices", noticesSchema);
+
+module.exports = Notices;
