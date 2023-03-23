@@ -23,8 +23,7 @@ const register = async (req, res) => {
                 email,
                 name, 
                 city,
-                phone,
-                
+                phone,  
             }
         }
     })
