@@ -10,6 +10,7 @@ const cloudinaryMiddleWar = async (req, res, next) => {
   req.fileUrl = "";
 
   if (req.file) {
+    // console.log(req.file);
     const upload = await cloudinary.uploader.upload(req.file.path);
     req.fileUrl = upload.secure_url;
   }
