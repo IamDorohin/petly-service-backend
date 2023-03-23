@@ -3,6 +3,7 @@ const { OurFriend } = require("./our_friend");
 const { User } = require("./user");
 const { Notices } = require("./notices");
 const { Pets } = require('./pets')
+const { Notice } = require("./notice");
 
 module.exports = {
   News,
@@ -10,5 +11,6 @@ module.exports = {
   User,
   Notices,
   Pets
+  Notice,
 };
 

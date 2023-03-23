@@ -4,6 +4,9 @@ const cors = require("cors");
 // transport names of variables to environment of variables
 require("dotenv").config();
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 // crete server
 const app = express();
 
@@ -34,6 +37,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/notices", noticesRouter);
 app.use('/api/pets', petsRouter);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
