@@ -6,12 +6,17 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const cloudinaryMiddleWar = async (req, res, next) => {
-  req.fileUrl = "";
+const options = {
+  use_filename: true,
+  unique_filename: false,
+  overwrite: true,
+};
 
+const cloudinaryMiddleWar = async (req, res, next) => {
   if (req.file) {
-    const upload = await cloudinary.uploader.upload(req.file.path);
-    req.fileUrl = upload.secure_url;
+    const upload = await cloudinary.uploader.upload(req.file.path, options);
+    req.file.url = upload.secure_url;
+    req.file.format = upload.format;
   }
 
   next();
