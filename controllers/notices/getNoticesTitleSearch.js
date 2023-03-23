@@ -4,6 +4,8 @@ const sortNoticesByDate = require("../../helpers/sortNoticesByDate");
 
 const getNoticesTitleSearch = async (req, res) => {
   const { search: query } = req.params;
+  const { page = 1, limit = 10 } = req.query;
+  const skip = (page - 1) * limit;
 
   const result = await Notice.find({ title: { $search: query } }, "", {
     skip,
