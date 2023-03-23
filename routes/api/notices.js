@@ -9,7 +9,8 @@ const {
   upload,
   cloudinaryMiddleWar,
 } = require("../../middleWares");
-const uploader = require("../../middleWares/upload");
+
+const { joiAddNoticeSchema } = require("../../models/notice");
 
 router.get("/:search", ctrlWrapper(ctrl.getNoticesTitleSearch));
 router.get("/category/:category", ctrlWrapper(ctrl.getNoticesByCategory));
@@ -19,6 +20,7 @@ router.get("/favorite", auth, ctrlWrapper(ctrl.getFavoriteNotices));
 router.post(
   "/notice",
   auth,
+  validation(joiAddNoticeSchema),
   upload.single("image"),
   cloudinaryMiddleWar,
   ctrlWrapper(ctrl.addNewNotice)
