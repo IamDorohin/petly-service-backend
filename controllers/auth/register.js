@@ -3,7 +3,7 @@ const { Conflict } = require("http-errors");
 const bcrypt = require("bcryptjs");
 
 const register = async (req, res) => {
-    const { name, email, password, city_region, mobile_phone } = req.body;
+    const { name, email, password, city, phone } = req.body;
    
     const user = await User.findOne({ email });
    
@@ -13,7 +13,7 @@ const register = async (req, res) => {
 
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-    await User.create({ name, email, password: hashPassword, city_region, mobile_phone });
+    await User.create({ name, email, password: hashPassword, city, phone });
 
     res.status(201).json({
         status: "success",
@@ -21,7 +21,10 @@ const register = async (req, res) => {
         data: {
             user: {
                 email,
-                name,      
+                name, 
+                city,
+                phone,
+                
             }
         }
     })

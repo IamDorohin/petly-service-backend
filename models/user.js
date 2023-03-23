@@ -17,20 +17,26 @@ const userSchema = Schema(
       required: true,
       minlenght: 8,
     },
-    city_region: {
-      type: String,
-      required: true,
-    },
-    mobile_phone: {
-      type: String,
-      required: true,
-    },
     favorite: [
       {
         type: Schema.ObjectId,
         ref: "notice",
       },
     ],
+    city: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    birthday: {
+      type: String,
+    },
+    photo: {
+      type: String,
+    },
     token: {
       type: String,
       default: null,
@@ -43,13 +49,22 @@ const joiRegisterSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required(),
   password: Joi.string().min(8).required(),
-  city_region: Joi.string().required(),
-  mobile_phone: Joi.string().min(10).required(),
+  city: Joi.string().required(),
+  phone: Joi.string().min(10).required(),
 });
 
 const joiLoginSchema = Joi.object({
   email: Joi.string().required(),
   password: Joi.string().min(8).required(),
+});
+
+const joiUserProfileSchema = Joi.object({
+  name: Joi.string(),
+  email: Joi.string(),
+  city: Joi.string(),
+  phone: Joi.string().min(10),
+  birthday: Joi.string(),
+  photo: Joi.string(),
 });
 
 const User = model("user", userSchema);
@@ -58,4 +73,5 @@ module.exports = {
   User,
   joiRegisterSchema,
   joiLoginSchema,
+  joiUserProfileSchema,
 };
