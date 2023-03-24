@@ -4,10 +4,17 @@ const sortNoticesByDate = require("../../helpers/sortNoticesByDate");
 
 const getNoticesByCategory = async (req, res) => {
   const { category } = req.params;
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 10, search } = req.query;
   const skip = (page - 1) * limit;
+  let query = {
+    category,
+  };
 
-  const result = await Notice.find({ category }, "", {
+  if (search) {
+    query = { category, $text: { $search: search } };
+  }
+
+  const result = await Notice.find(query, "", {
     skip,
     limit: Number(limit),
   });

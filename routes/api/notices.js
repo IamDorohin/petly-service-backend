@@ -12,16 +12,15 @@ const {
 
 const { joiAddNoticeSchema } = require("../../models/notice");
 
-router.get("/:search", ctrlWrapper(ctrl.getNoticesTitleSearch));
 router.get("/category/:category", ctrlWrapper(ctrl.getNoticesByCategory));
 router.get("/notice/:noticeId", ctrlWrapper(ctrl.getNoticeById));
-router.get("/own", auth, ctrlWrapper(ctrl.getNoticesByUser));
-router.get("/favorite", auth, ctrlWrapper(ctrl.getFavoriteNotices));
+router.get("/category/own", auth, ctrlWrapper(ctrl.getNoticesByUser));
+router.get("/category/favorite", auth, ctrlWrapper(ctrl.getFavoriteNotices));
 router.post(
   "/notice",
   auth,
-  validation(joiAddNoticeSchema),
   upload.single("image"),
+  validation(joiAddNoticeSchema),
   cloudinaryMiddleWar,
   ctrlWrapper(ctrl.addNewNotice)
 );

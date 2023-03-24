@@ -13,6 +13,7 @@ const noticeSchema = Schema(
       required: [true, "Title is required"],
       minLength: 6,
       maxLength: 48,
+      text: true,
     },
     name: {
       type: String,
