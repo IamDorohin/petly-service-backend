@@ -49,7 +49,7 @@ const noticeSchema = Schema(
       min: 1,
     },
     price: {
-      type: Number,
+      type: String,
       min: 1,
     },
     owner: {
@@ -73,6 +73,7 @@ const joiAddNoticeSchema = Joi.object({
     .required(),
   price: Joi.string().min(1),
   comments: Joi.string().min(8).max(120),
+  imgUrl: Joi.string()
 });
 
 const Notice = model("notice", noticeSchema);

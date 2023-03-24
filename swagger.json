@@ -179,6 +179,143 @@
           }
         }
       }
+    },
+
+    "/api/users/current/update": {
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update user info",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "User's info object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdateInfoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserUpdateInfoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/news": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Getting news on page",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/our_friends": {
+      "get": {
+        "tags": ["Friends"],
+        "summary": "Getting list companies on page",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendsListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/notices/notice": {
+      "post": {
+        "tags": ["Notices"],
+        "summary": "Create notice",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Notice's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddNoticeRequest"
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddNoticeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
     }
   },
 
@@ -298,6 +435,256 @@
             "type": "string",
             "description": "User's id",
             "example": "641c65543edee93120a7a83a"
+          }
+        }
+      },
+
+      "UserUpdateInfoRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Roberto Baggio"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city",
+            "example": "New York"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone",
+            "example": "+5670-456-12-45"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "12/12/1990"
+          },
+          "photo": {
+            "type": "string",
+            "description": "User's photo url",
+            "example": "http://res.cloudinary.com/h_225,w_225/18387fa2f662a9d5a.jpg"
+          }
+        }
+      },
+
+      "UserUpdateInfoResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Roberto Baggio"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city",
+            "example": "New York"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone",
+            "example": "+5670-456-12-45"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "12/12/1990"
+          },
+          "photo": {
+            "type": "string",
+            "description": "User's photo url",
+            "example": "http://res.cloudinary.com/h_225,w_225/18387fa2f662a9d5a.jpg"
+          }
+        }
+      },
+
+      "NewsListResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "News id",
+            "example": "6416d46955c9817f6bc918a6"
+          },
+          "title": {
+            "type": "string",
+            "description": "News title",
+            "example": "Human of year"
+          },
+          "url": {
+            "type": "string",
+            "description": "News url",
+            "example": "https://www.kmlvm.human-of-year"
+          },
+          "description": {
+            "type": "string",
+            "description": "News text",
+            "example": "This year we have a new..."
+          }
+        }
+      },
+      "FriendsListResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Company's id",
+            "example": "6416d46955c9817f6bc918a6"
+          },
+          "title": {
+            "type": "string",
+            "description": "Company's name",
+            "example": "Wiskas"
+          },
+          "url": {
+            "type": "string",
+            "description": "Company's site",
+            "example": "https://www.wiskas.com"
+          },
+          "adressUrl": {
+            "type": "string",
+            "description": "Company's adress reference",
+            "example": "https://goo.gl/maps/iq8NXEUf31EAQCzc6"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Company's logo url",
+            "example": "https://storage.googleapis.com/pets-support/images/_287.png"
+          },
+          "adress": {
+            "type": "string",
+            "description": "Company's adress",
+            "example": "Kyiv, Ukraine"
+          },
+          "workDays": {
+            "type": "array",
+            "description": "work day's of company",
+            "example": [
+              {
+                "isOpen": true,
+                "from": "11:00",
+                "to": "16:00"
+              },
+              {
+                "isOpen": true,
+                "from": "11:00",
+                "to": "16:00"
+              }
+            ]
+          }
+        }
+      },
+      "AddNoticeRequest": {
+        "type": "object",
+        "required": [
+          "title",
+          "name",
+          "birthday",
+          "breed",
+          "location",
+          "sex",
+          "category"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Pet title description",
+            "example": "Pretty dog"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Richi"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birhday",
+            "example": "12/12/22"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Pet's breed",
+            "example": "pincher"
+          },
+          "location": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Kyiv"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's sex",
+            "example": "male"
+          },
+          "category": {
+            "type": "string",
+            "description": "Pet's category",
+            "example": "sell"
+          },
+
+          "imgUrl": {
+            "type": "string",
+            "description": "Pet's photo url",
+            "example": "url/sdfsda32422232/sdf"
+          }
+        }
+      },
+
+      "AddNoticeResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Pet title description",
+            "example": "Pretty dog"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Richi"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birhday",
+            "example": "12/12/22"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Pet's breed",
+            "example": "pincher"
+          },
+          "location": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Kyiv"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's sex",
+            "example": "male"
+          },
+          "category": {
+            "type": "string",
+            "description": "Pet's category",
+            "example": "sell"
+          },
+          "imgUrl": {
+            "type": "string",
+            "description": "Pet's photo url",
+            "example": "url/sdfsda32422232/sdf"
           }
         }
       }
