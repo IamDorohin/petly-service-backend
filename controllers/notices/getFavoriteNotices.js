@@ -7,14 +7,20 @@ const getFavoriteNotices = async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
   const skip = (page - 1) * limit;
 
-  const currentUserDB = await User.findOne({ _id: userId }, "", {
+  const currentUserFavoriteNotices = await User.findOne({ _id: userId }, "", {
     skip,
     limit: Number(limit),
   }).populate("favorite");
 
-  const result = currentUserDB.favorite;
+  const currentUserFavoriteId = await User.findOne({ _id: userId });
+
+  const result = currentUserFavoriteNotices.favorite;
+  const favorite = currentUserFavoriteId.favorite;
 
   if (result.length === 0) {
+    throw new NotFound("Sorry, you do not have favorite notices");
+  }
+  if (favorite.length === 0) {
     throw new NotFound("Sorry, you do not have favorite notices");
   }
 
@@ -25,6 +31,7 @@ const getFavoriteNotices = async (req, res) => {
     code: 200,
     data: {
       notices,
+      favorite,
     },
   });
 };

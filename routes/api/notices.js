@@ -12,10 +12,10 @@ const {
 
 const { joiAddNoticeSchema } = require("../../models/notice");
 
-router.get("/category/:category", ctrlWrapper(ctrl.getNoticesByCategory));
 router.get("/notice/:noticeId", ctrlWrapper(ctrl.getNoticeById));
 router.get("/category/own", auth, ctrlWrapper(ctrl.getNoticesByUser));
 router.get("/category/favorite", auth, ctrlWrapper(ctrl.getFavoriteNotices));
+router.get("/category/:category", ctrlWrapper(ctrl.getNoticesByCategory));
 router.post(
   "/notice",
   auth,
