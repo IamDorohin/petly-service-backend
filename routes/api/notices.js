@@ -19,7 +19,7 @@ router.get("/category/favorite", auth, ctrlWrapper(ctrl.getFavoriteNotices));
 router.post(
   "/notice",
   auth,
-  upload.single("image"),
+  upload.single("imgUrl"),
   validation(joiAddNoticeSchema),
   cloudinaryMiddleWar,
   ctrlWrapper(ctrl.addNewNotice)
