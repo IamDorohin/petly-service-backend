@@ -9,7 +9,7 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "consumes": ["application/json"],
+  "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json"],
   "servers": [
     { "url": "http://localhost:3000" },
@@ -48,7 +48,6 @@
         "tags": ["Auth"],
         "summary": "User registration",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Registration's object",
           "required": true,
@@ -81,11 +80,169 @@
           }
         }
       }
+    },
+
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "parameters": [],
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/auth/logout": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/users/current": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "User current",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
     }
   },
+
   "components": {
     "schemas": {
       "RegistrationRequest": {
+        "type": "object",
+        "required": ["email", "password", "name", "city", "phone"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Pedro Gonsalez"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city",
+            "example": "Barcelona, Catalonia"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone number",
+            "example": "+7930-345-23-12"
+          }
+        }
+      },
+
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Pedro Gonsalez"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city",
+            "example": "Barcelona, Catalonia"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone number",
+            "example": "+7930-345-23-12"
+          }
+        }
+      },
+
+      "LoginRequest": {
         "type": "object",
         "required": ["email", "password"],
         "properties": {
@@ -101,27 +258,48 @@
           }
         }
       },
-      "RegistrationResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            },
-            "userId": {
-              "type": "number",
-              "description": "User's id",
-              "example": "32143232436545474"
-            }
+
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUz.I1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MWM2Z"
           }
-        },
-        "example": [
-          { "email": "1@gmail.com", "userId": "1" },
-          { "email": "2@gmail.com", "userId": "2" }
-        ]
+        }
+      },
+
+      "LogoutResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "User's message",
+            "example": "user is logout"
+          }
+        }
+      },
+
+      "CurrentUserResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "carlitto@mail.com"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Carlos Kastaneda"
+          },
+          "id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "641c65543edee93120a7a83a"
+          }
+        }
       }
     },
     "securitySchemes": {
