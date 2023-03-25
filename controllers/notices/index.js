@@ -7,6 +7,7 @@ const addNewNotice = require("./addNewNotice");
 const addNoticeToFavorites = require("./addNoticeToFavorites");
 const removeNoticeById = require("./removeNoticeById");
 const removeNoticeFromFavorites = require("./removeNoticeFromFavorites");
+const getFavoriteIdArr = require("./getFavoriteIdArr");
 
 module.exports = {
   getNoticesTitleSearch,
@@ -18,4 +19,5 @@ module.exports = {
   addNoticeToFavorites,
   removeNoticeById,
   removeNoticeFromFavorites,
+  getFavoriteIdArr,
 };
