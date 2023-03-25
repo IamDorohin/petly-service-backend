@@ -34,11 +34,10 @@ const petsSchema = Schema({
 
 
 const joiPetsSchema = Joi.object({
-    name: Joi.string().min(2).max(16),
-    date: Joi.string(),
-    breed: Joi.string().min(2).max(16),
-    comments: Joi.string().min(2).max(120),
-    imageURL: Joi.string(),
+    name: Joi.string().min(2).max(16).required(),
+    date: Joi.string().required(),
+    breed: Joi.string().min(2).max(16).required(),
+    comments: Joi.string().min(2).max(120).required()
 })
 
 

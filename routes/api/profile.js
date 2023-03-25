@@ -22,14 +22,12 @@ router.post(
 router.delete(
   "/:petId",
   auth,
-  validation(joiPetsSchema),
   ctrlWrapper(ctrl.removePet)
 );
 router.get(
   "/",
   auth,
-  validation(joiPetsSchema),
-  ctrlWrapper(ctrl.showYourPets)
+  ctrlWrapper(ctrl.showProfileAndPets)
 );
 
 module.exports = router;
