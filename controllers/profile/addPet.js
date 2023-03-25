@@ -3,19 +3,28 @@ const fs = require("fs/promises");
 const cloudinary = require("cloudinary").v2;
 
 const addPet = async (req, res) => {
-    const { filename, format, path, url } = req.file;
-    const { _id: owner } = req.user;
 
-    const petsImageUrl = cloudinary.url(filename + "." + format, {
-        transformation: {
-            width: 336,
-            height: 336,
-            gravity: "face",
-            crop: "fill",
-        },
-    });
+   const { _id: owner } = req.user;
+    let petsImageUrl = '';
 
-    fs.unlink(path);
+    if (!req.file) {
+        petsImageUrl = 'default/url';
+    }
+
+    else if (req.file) {
+        const { filename, format, path, url } = req.file;
+        petsImageUrl = cloudinary.url(filename + "." + format, {
+            transformation: {
+                width: 240,
+                height: 240,
+                gravity: "face",
+                crop: "fill",
+            },
+        });
+    
+        fs.unlink(path);
+    }
+
 
     const newPet = await Pets.create({...req.body, petsImageUrl, owner});
 
