@@ -15,7 +15,7 @@ const removePet = async(req, res) =>{
       res.status(404).json({
         status: "error",
         code: 404,
-        message: `Add ${petId} can not be deleted `,
+        message: `Adv ${petId} can not be deleted `,
       });
     }
   } catch (error) {

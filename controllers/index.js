@@ -3,7 +3,7 @@ const our_friends = require("./our_friends");
 const auth = require("./auth");
 const users = require("./users");
 const notices = require("./notices");
-const pets = require('./pets')
+const profile = require('./profile')
 
 module.exports = {
   news,
@@ -11,6 +11,6 @@ module.exports = {
   auth,
   users,
   notices,
-  pets
+  profile
 };
 

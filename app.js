@@ -16,7 +16,7 @@ const newsRouter = require("./routes/api/news");
 const friendsRouter = require("./routes/api/our_friends");
 const usersRouter = require("./routes/api/users");
 const noticesRouter = require("./routes/api/notices");
-const petsRouter = require('./routes/api/pets');
+const profileRouter = require('./routes/api/profile');
 
 
 // way of getting info
@@ -36,7 +36,7 @@ app.use("/api/our_friends", friendsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/notices", noticesRouter);
-app.use('/api/pets', petsRouter);
+app.use('/api/profile', profileRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {

@@ -8,7 +8,7 @@ const petsSchema = Schema({
         maxlength: 16,
     },
     date: {
-        type: String,
+        type: Date,
     },
     breed: {
         type: String,
@@ -20,7 +20,15 @@ const petsSchema = Schema({
         minlength: 8,
         maxlength: 120,
     },
-    fileUrl: { type: String },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        required: true,
+    },
+    petsImageUrl: {
+        type: String,
+        required: [true, "Photo is required"]
+    },
 },
 { versionKey: false, timestamps: true })
 
