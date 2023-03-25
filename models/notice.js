@@ -11,8 +11,9 @@ const noticeSchema = Schema(
     title: {
       type: String,
       required: [true, "Title is required"],
-      minLength: 2,
+      minLength: 6,
       maxLength: 48,
+      text: true,
     },
     name: {
       type: String,
@@ -48,7 +49,7 @@ const noticeSchema = Schema(
       min: 1,
     },
     price: {
-      type: Number,
+      type: String,
       min: 1,
     },
     owner: {
@@ -60,15 +61,21 @@ const noticeSchema = Schema(
   { versionKey: false, timestamps: true }
 );
 
-// const joiRegisterSchema = Joi.object({
-//   name: Joi.string().required(),
-//   email: Joi.string().required(),
-//   password: Joi.string().min(8).required(),
-//   city_region: Joi.string().required(),
-//   mobile_phone: Joi.string().min(10).required(),
-// });
+const joiAddNoticeSchema = Joi.object({
+  title: Joi.string().min(6).max(48).required(),
+  name: Joi.string().min(2).max(16).required(),
+  birthday: Joi.date(),
+  breed: Joi.string().min(2).max(40).required(),
+  location: Joi.string().min(3).required(),
+  sex: Joi.string().valid("male", "female").required(),
+  category: Joi.string()
+    .valid("sell", "in-good-hands", "lost-found")
+    .required(),
+  price: Joi.string().min(1),
+  comments: Joi.string().min(8).max(120),
+  imgUrl: Joi.string()
+});
 
-// create a model
 const Notice = model("notice", noticeSchema);
 
-module.exports = { Notice };
+module.exports = { Notice, joiAddNoticeSchema };
