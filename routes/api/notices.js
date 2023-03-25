@@ -16,6 +16,7 @@ router.get("/notice/:noticeId", ctrlWrapper(ctrl.getNoticeById));
 router.get("/category/own", auth, ctrlWrapper(ctrl.getNoticesByUser));
 router.get("/category/favorite", auth, ctrlWrapper(ctrl.getFavoriteNotices));
 router.get("/category/:category", ctrlWrapper(ctrl.getNoticesByCategory));
+router.get("/favorite", auth, ctrlWrapper(ctrl.getFavoriteIdArr));
 router.post(
   "/notice",
   auth,
