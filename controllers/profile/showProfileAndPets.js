@@ -1,9 +1,12 @@
 const { Pets } = require("../../models");
 
-const showYourPets = async (req, res, next) => {
+const showProfileAndPets = async (req, res, next) => {
 
   const { _id: owner, email, name, birthday, city, phone  } = req.user;
 
+
+  console.log(req.user);
+  
   try {
     const list = await Pets.find({ owner });
     res.json({
@@ -29,4 +32,4 @@ const showYourPets = async (req, res, next) => {
   }
 };
 
-module.exports = showYourPets;
+module.exports = showProfileAndPets;

@@ -1,9 +1,9 @@
 const addPet = require('./addPet')
 const removePet = require('./removePet')
-const showYourPets = require('./showYourPets')
+const showProfileAndPets = require('./showProfileAndPets')
 
 module.exports = {
     addPet,
     removePet,
-    showYourPets,
+    showProfileAndPets,
 }

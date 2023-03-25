@@ -419,6 +419,34 @@
         }
       }
     },
+    "/api/notices/favorite": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get id of favorite notices",
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteIdResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/notices/notice/{noticeId}": {
       "get": {
         "tags": ["Notices"],
@@ -537,6 +565,110 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PrivateNoticesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/profile": {
+      "post": {
+        "tags": ["Pets"],
+        "summary": "Adds info about user's pet",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Pets's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddPetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddPetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      },
+
+      "get": {
+        "tags": ["Pets"],
+        "summary": "Show user's profile and his pets",
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfilePetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/profile/{petId}": {
+      "delete": {
+        "tags": ["Pets"],
+        "summary": "Delete pet by id from user list",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "petId",
+            "required": "true",
+            "type": "string",
+            "description": "id of favorite notice"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddPetResponse"
                 }
               }
             }
@@ -1028,6 +1160,133 @@
             "type": "string",
             "example": "notice has been deleted"
           }
+        }
+      },
+
+      "AddPetRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "pet's name",
+            "example": "Lilu"
+          },
+          "date": {
+            "type": "string",
+            "description": "pet's birthday",
+            "example": "12/12/22"
+          },
+          "breed": {
+            "type": "string",
+            "description": "pet's breed",
+            "example": "maltipou"
+          },
+          "comments": {
+            "type": "string",
+            "description": "comment about pet",
+            "example": "very good dog"
+          }
+        }
+      },
+
+      "AddPetResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "pet's name",
+            "example": "Lilu"
+          },
+          "date": {
+            "type": "string",
+            "description": "pet's birthday",
+            "example": "12/12/22"
+          },
+          "breed": {
+            "type": "string",
+            "description": "pet's breed",
+            "example": "maltipou"
+          },
+          "comments": {
+            "type": "string",
+            "description": "comment about pet",
+            "example": "very good dog"
+          },
+          "owner": {
+            "type": "string",
+            "description": "owner's id",
+            "example": "641f13e0f04c9c7db2350197"
+          },
+          "petsImageUrl": {
+            "type": "string",
+            "description": "owner's id",
+            "example": "url/3e0f04c9c7db2350197.img.jpg"
+          }
+        }
+      },
+
+      "ProfilePetResponse": {
+        "type": "object",
+        "properties": {
+          "pet_name": {
+            "type": "string",
+            "description": "pet's name",
+            "example": "Lilu"
+          },
+          "pet_date": {
+            "type": "string",
+            "description": "pet's birthday",
+            "example": "12/12/22"
+          },
+          "pet_breed": {
+            "type": "string",
+            "description": "pet's breed",
+            "example": "maltipou"
+          },
+          "pet_comments": {
+            "type": "string",
+            "description": "comment about pet",
+            "example": "very good dog"
+          },
+          "pet_owner": {
+            "type": "string",
+            "description": "owner's id",
+            "example": "641f13e0f04c9c7db2350197"
+          },
+          "petsImageUrl": {
+            "type": "string",
+            "description": "owner's id",
+            "example": "url/3e0f04c9c7db2350197.img.jpg"
+          },
+
+          "user_email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "user_name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Pedro Gonsalez"
+          },
+          "users_city": {
+            "type": "string",
+            "description": "User's city",
+            "example": "Barcelona, Catalonia"
+          },
+          "user_phone": {
+            "type": "string",
+            "description": "User's phone number",
+            "example": "+7930-345-23-12"
+          }
+        }
+      },
+
+      "FavoriteIdResponse": {
+        "type": "array",
+
+        "items": {
+          "type": "string"
         }
       }
     },
