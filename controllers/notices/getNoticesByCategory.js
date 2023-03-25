@@ -10,6 +10,7 @@ const getNoticesByCategory = async (req, res) => {
     category,
   };
 
+  console.log(query);
   if (search) {
     query = { category, $text: { $search: search } };
   }

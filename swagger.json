@@ -316,6 +316,241 @@
           }
         }
       }
+    },
+
+    "/api/notices/favorite/{noticeId}": {
+      "post": {
+        "tags": ["Notices"],
+        "summary": "Add notice to favorite",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "noticeId",
+            "required": "true",
+            "type": "string",
+            "description": "id of notice"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddNoticeToFavoriteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      },
+
+      "delete": {
+        "tags": ["Notices"],
+        "summary": "Remove notice from favorite",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "noticeId",
+            "required": "true",
+            "type": "string",
+            "description": "id of favorite notice"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteNoticeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/category/favorite": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get favorite notices",
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteNoticesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/notice/{noticeId}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get info about pet by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "noticeId",
+            "required": "true",
+            "type": "string",
+            "description": "id of notice"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteNoticesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      },
+
+      "delete": {
+        "tags": ["Notices"],
+        "summary": "Remove notice by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "noticeId",
+            "required": "true",
+            "type": "string",
+            "description": "id of notice"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteNoticeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/category/{category}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get the same categories of notices",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "category",
+            "required": "true",
+            "type": "string",
+            "description": "category of notice"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteNoticesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/notices/category/own": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get only that notices that were created by user",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateNoticesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
     }
   },
 
@@ -687,8 +922,116 @@
             "example": "url/sdfsda32422232/sdf"
           }
         }
+      },
+      "AddNoticeToFavoriteResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "notice has been added to favorite"
+          }
+        }
+      },
+      "FavoriteNoticesResponse": {
+        "type": "object",
+        "properties": {
+          "ctaegory": {
+            "type": "string",
+            "example": "lost found"
+          },
+
+          "title": {
+            "type": "string",
+            "example": "Lost Pinguin"
+          },
+          "name": {
+            "type": "string",
+            "example": "Masyasya"
+          },
+          "bread": {
+            "type": "string",
+            "example": "mperial Pinguin"
+          },
+          "sex": {
+            "type": "string",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "example": "Narniya"
+          },
+          "comments": {
+            "type": "string",
+            "example": "PLease help me find pinguin"
+          },
+          "imgUrl": {
+            "type": "string",
+            "example": "http://res.cloudinary.com/dwnz8nya4/image/d69ec67.jpg"
+          },
+          "price": {
+            "type": "string",
+            "example": "20$"
+          },
+          "owner": {
+            "type": "string",
+            "example": "641c821322c15901ca787c79"
+          }
+        }
+      },
+
+      "PrivateNoticesResponse": {
+        "type": "object",
+        "properties": {
+          "ctaegory": {
+            "type": "string",
+            "example": "lost found"
+          },
+
+          "title": {
+            "type": "string",
+            "example": "Lost Pinguin"
+          },
+          "name": {
+            "type": "string",
+            "example": "Masyasya"
+          },
+          "bread": {
+            "type": "string",
+            "example": "mperial Pinguin"
+          },
+          "sex": {
+            "type": "string",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "example": "Narniya"
+          },
+          "comments": {
+            "type": "string",
+            "example": "PLease help me find pinguin"
+          },
+          "imgUrl": {
+            "type": "string",
+            "example": "http://res.cloudinary.com/dwnz8nya4/image/d69ec67.jpg"
+          },
+          "price": {
+            "type": "string",
+            "example": "20$"
+          }
+        }
+      },
+      "DeleteNoticeResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "notice has been deleted"
+          }
+        }
       }
     },
+
     "securitySchemes": {
       "Bearer": {
         "type": "http",
