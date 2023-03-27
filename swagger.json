@@ -1228,27 +1228,69 @@
       "ProfilePetResponse": {
         "type": "object",
         "properties": {
-          "pet_name": {
+          "yourPets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PetResponse"
+            }
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Pedro Gonsalez"
+              },
+              "city": {
+                "type": "string",
+                "description": "User's city",
+                "example": "Barcelona, Catalonia"
+              },
+              "phone": {
+                "type": "string",
+                "description": "User's phone number",
+                "example": "+7930-345-23-12"
+              }
+            }
+          }
+        }
+      },
+
+      "PetResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "pet's id",
+            "example": "khg2345324lkjh2l34jhgjl234"
+          },
+          "name": {
             "type": "string",
             "description": "pet's name",
             "example": "Lilu"
           },
-          "pet_date": {
+          "date": {
             "type": "string",
             "description": "pet's birthday",
             "example": "12/12/22"
           },
-          "pet_breed": {
+          "breed": {
             "type": "string",
             "description": "pet's breed",
             "example": "maltipou"
           },
-          "pet_comments": {
+          "comments": {
             "type": "string",
             "description": "comment about pet",
             "example": "very good dog"
           },
-          "pet_owner": {
+          "owner": {
             "type": "string",
             "description": "owner's id",
             "example": "641f13e0f04c9c7db2350197"
@@ -1257,27 +1299,6 @@
             "type": "string",
             "description": "owner's id",
             "example": "url/3e0f04c9c7db2350197.img.jpg"
-          },
-
-          "user_email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "user_name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "Pedro Gonsalez"
-          },
-          "users_city": {
-            "type": "string",
-            "description": "User's city",
-            "example": "Barcelona, Catalonia"
-          },
-          "user_phone": {
-            "type": "string",
-            "description": "User's phone number",
-            "example": "+7930-345-23-12"
           }
         }
       },
