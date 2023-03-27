@@ -46,21 +46,21 @@ const userSchema = Schema(
 );
 
 const joiRegisterSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
+  name: Joi.string().min(2).required(),
+  email: Joi.string().email().required(),
   password: Joi.string().min(8).required(),
   city: Joi.string().required(),
   phone: Joi.string().min(10).required(),
 });
 
 const joiLoginSchema = Joi.object({
-  email: Joi.string().required(),
+  email: Joi.string().email().required(),
   password: Joi.string().min(8).required(),
 });
 
 const joiUserProfileSchema = Joi.object({
   name: Joi.string(),
-  email: Joi.string(),
+  email: Joi.string().email(),
   city: Joi.string(),
   phone: Joi.string().min(10),
   birthday: Joi.string(),
