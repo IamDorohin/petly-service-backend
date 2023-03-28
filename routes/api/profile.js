@@ -15,19 +15,11 @@ router.post(
   "/",
   auth,
   upload.single("petsImageUrl"),
-  validation(joiPetsSchema),
+  // validation(joiPetsSchema),
   cloudinaryMiddleWar,
   ctrlWrapper(ctrl.addPet)
 );
-router.delete(
-  "/:petId",
-  auth,
-  ctrlWrapper(ctrl.removePet)
-);
-router.get(
-  "/",
-  auth,
-  ctrlWrapper(ctrl.showProfileAndPets)
-);
+router.delete("/:petId", auth, ctrlWrapper(ctrl.removePet));
+router.get("/", auth, ctrlWrapper(ctrl.showProfileAndPets));
 
 module.exports = router;
