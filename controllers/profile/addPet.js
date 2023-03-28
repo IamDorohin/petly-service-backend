@@ -8,7 +8,7 @@ const addPet = async (req, res) => {
     let petsImageUrl = '';
 
     if (!req.file) {
-        petsImageUrl = 'default/url';
+        petsImageUrl = 'https://img.favpng.com/24/18/11/dog-puppy-abstraction-png-favpng-iQBDxcgxFhRfXVPtwCwv0THcN.jpg';
     }
 
     else if (req.file) {

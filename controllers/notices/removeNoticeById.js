@@ -13,7 +13,7 @@ const removeNoticeById = async (req, res) => {
   res.json({
     status: "success",
     code: 200,
-    message: "Notice has been removed ",
+    message: "Notice has been removed from favorites",
   });
 };
 

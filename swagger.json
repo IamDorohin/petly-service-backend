@@ -536,7 +536,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FavoriteNoticesResponse"
+                  "$ref": "#/components/schemas/NoticesByCategoryResponse"
                 }
               }
             }
@@ -564,7 +564,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PrivateNoticesResponse"
+                  "$ref": "#/components/schemas/NoticesByCategoryResponse"
                 }
               }
             }
@@ -657,7 +657,7 @@
             "name": "petId",
             "required": "true",
             "type": "string",
-            "description": "id of favorite notice"
+            "description": "id of notice user's pet"
           }
         ],
         "security": [{ "Bearer": [] }],
@@ -723,25 +723,30 @@
       "RegistrationResponse": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "Pedro Gonsalez"
-          },
-          "city": {
-            "type": "string",
-            "description": "User's city",
-            "example": "Barcelona, Catalonia"
-          },
-          "phone": {
-            "type": "string",
-            "description": "User's phone number",
-            "example": "+7930-345-23-12"
+          "user": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Pedro Gonsalez"
+              },
+              "city": {
+                "type": "string",
+                "description": "User's city",
+                "example": "Barcelona, Catalonia"
+              },
+              "phone": {
+                "type": "string",
+                "description": "User's phone number",
+                "example": "+7930-345-23-12"
+              }
+            }
           }
         }
       },
@@ -788,20 +793,25 @@
       "CurrentUserResponse": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "example": "carlitto@mail.com"
-          },
-          "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "Carlos Kastaneda"
-          },
-          "id": {
-            "type": "string",
-            "description": "User's id",
-            "example": "641c65543edee93120a7a83a"
+          "user": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "carlitto@mail.com"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Carlos Kastaneda"
+              },
+              "id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "641c65543edee93120a7a83a"
+              }
+            }
           }
         }
       },
@@ -845,6 +855,17 @@
       "UserUpdateInfoResponse": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "6422fd65173e7dfe3ba7a689"
+          },
+
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "6422fd65173e7dfe3ba7a689.aedfad908asd.c6978asydc89.sdfsdf"
+          },
           "email": {
             "type": "string",
             "description": "User's email",
@@ -881,6 +902,18 @@
       "NewsListResponse": {
         "type": "object",
         "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewsObjectResponse"
+            }
+          }
+        }
+      },
+
+      "NewsObjectResponse": {
+        "type": "object",
+        "properties": {
           "_id": {
             "type": "string",
             "description": "News id",
@@ -903,6 +936,7 @@
           }
         }
       },
+
       "FriendsListResponse": {
         "type": "object",
         "properties": {
@@ -1013,48 +1047,60 @@
       "AddNoticeResponse": {
         "type": "object",
         "properties": {
-          "title": {
-            "type": "string",
-            "description": "Pet title description",
-            "example": "Pretty dog"
-          },
-          "name": {
-            "type": "string",
-            "description": "Pet's name",
-            "example": "Richi"
-          },
-          "birthday": {
-            "type": "string",
-            "description": "Pet's birhday",
-            "example": "12/12/22"
-          },
-          "breed": {
-            "type": "string",
-            "description": "Pet's breed",
-            "example": "pincher"
-          },
-          "location": {
-            "type": "string",
-            "description": "Pet's location",
-            "example": "Kyiv"
-          },
-          "sex": {
-            "type": "string",
-            "description": "Pet's sex",
-            "example": "male"
-          },
-          "category": {
-            "type": "string",
-            "description": "Pet's category",
-            "example": "sell"
-          },
-          "imgUrl": {
-            "type": "string",
-            "description": "Pet's photo url",
-            "example": "url/sdfsda32422232/sdf"
+          "newNotice": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "Pet's category",
+                "example": "sell"
+              },
+              "title": {
+                "type": "string",
+                "description": "Pet title description",
+                "example": "Pretty dog"
+              },
+              "name": {
+                "type": "string",
+                "description": "Pet's name",
+                "example": "Richi"
+              },
+              "breed": {
+                "type": "string",
+                "description": "Pet's breed",
+                "example": "pincher"
+              },
+              "sex": {
+                "type": "string",
+                "description": "Pet's sex",
+                "example": "male"
+              },
+              "location": {
+                "type": "string",
+                "description": "Pet's location",
+                "example": "Kyiv"
+              },
+              "imgUrl": {
+                "type": "string",
+                "description": "Pet's photo url",
+                "example": "url/sdfsda32422232/sdf"
+              },
+              "owner": {
+                "type": "string",
+                "description": "Pet's owner id",
+                "example": "64230746b4e28197ad9b53ab"
+              },
+
+              "_id": {
+                "type": "string",
+                "description": "Notice's id",
+                "example": "6422fd65173e7dfe3ba7a689"
+              }
+            }
           }
         }
       },
+
       "AddNoticeToFavoriteResponse": {
         "type": "object",
         "properties": {
@@ -1067,98 +1113,81 @@
       "FavoriteNoticesResponse": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Notice's id",
+            "example": "64230a74a7de8a18995d0fac"
+          },
           "ctaegory": {
             "type": "string",
+            "description": "category's type",
             "example": "lost found"
           },
 
           "title": {
             "type": "string",
+            "description": "notice's title /",
             "example": "Lost Pinguin"
           },
           "name": {
             "type": "string",
+            "description": "pet's name",
             "example": "Masyasya"
           },
           "bread": {
             "type": "string",
+            "description": "bread of pet",
             "example": "mperial Pinguin"
           },
           "sex": {
             "type": "string",
+            "description": "sex of pet",
             "example": "male"
           },
           "location": {
             "type": "string",
+            "description": "location of pet",
             "example": "Narniya"
-          },
-          "comments": {
-            "type": "string",
-            "example": "PLease help me find pinguin"
           },
           "imgUrl": {
             "type": "string",
+            "description": "picture of pet",
             "example": "http://res.cloudinary.com/dwnz8nya4/image/d69ec67.jpg"
-          },
-          "price": {
-            "type": "string",
-            "example": "20$"
           },
           "owner": {
-            "type": "string",
-            "example": "641c821322c15901ca787c79"
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "user id",
+                "example": "6422fd65173e7dfe3ba7a689"
+              },
+              "name": {
+                "type": "string",
+                "description": "user name",
+                "example": "Alex"
+              },
+              "email": {
+                "type": "string",
+                "description": "user email",
+                "example": "alex@mail.com"
+              },
+              "phone": {
+                "type": "string",
+                "description": "user phonr",
+                "example": "123-34-45"
+              }
+            }
           }
         }
       },
 
-      "PrivateNoticesResponse": {
-        "type": "object",
-        "properties": {
-          "ctaegory": {
-            "type": "string",
-            "example": "lost found"
-          },
-
-          "title": {
-            "type": "string",
-            "example": "Lost Pinguin"
-          },
-          "name": {
-            "type": "string",
-            "example": "Masyasya"
-          },
-          "bread": {
-            "type": "string",
-            "example": "mperial Pinguin"
-          },
-          "sex": {
-            "type": "string",
-            "example": "male"
-          },
-          "location": {
-            "type": "string",
-            "example": "Narniya"
-          },
-          "comments": {
-            "type": "string",
-            "example": "PLease help me find pinguin"
-          },
-          "imgUrl": {
-            "type": "string",
-            "example": "http://res.cloudinary.com/dwnz8nya4/image/d69ec67.jpg"
-          },
-          "price": {
-            "type": "string",
-            "example": "20$"
-          }
-        }
-      },
       "DeleteNoticeResponse": {
         "type": "object",
         "properties": {
           "message": {
             "type": "string",
-            "example": "notice has been deleted"
+            "example": "Notice has been removed from favorites"
           }
         }
       },
@@ -1192,35 +1221,40 @@
       "AddPetResponse": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "description": "pet's name",
-            "example": "Lilu"
-          },
-          "date": {
-            "type": "string",
-            "description": "pet's birthday",
-            "example": "12/12/22"
-          },
-          "breed": {
-            "type": "string",
-            "description": "pet's breed",
-            "example": "maltipou"
-          },
-          "comments": {
-            "type": "string",
-            "description": "comment about pet",
-            "example": "very good dog"
-          },
-          "owner": {
-            "type": "string",
-            "description": "owner's id",
-            "example": "641f13e0f04c9c7db2350197"
-          },
-          "petsImageUrl": {
-            "type": "string",
-            "description": "owner's id",
-            "example": "url/3e0f04c9c7db2350197.img.jpg"
+          "petList": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "pet's name",
+                "example": "Lilu"
+              },
+              "date": {
+                "type": "string",
+                "description": "pet's birthday",
+                "example": "12/12/22"
+              },
+              "breed": {
+                "type": "string",
+                "description": "pet's breed",
+                "example": "maltipou"
+              },
+              "comments": {
+                "type": "string",
+                "description": "comment about pet",
+                "example": "very good dog"
+              },
+              "owner": {
+                "type": "string",
+                "description": "owner's id",
+                "example": "641f13e0f04c9c7db2350197"
+              },
+              "petsImageUrl": {
+                "type": "string",
+                "description": "owner's id",
+                "example": "url/3e0f04c9c7db2350197.img.jpg"
+              }
+            }
           }
         }
       },
@@ -1304,10 +1338,75 @@
       },
 
       "FavoriteIdResponse": {
-        "type": "array",
+        "type": "object",
+        "properties": {
+          "favorite": {
+            "type": "array",
+            "items": {
+              "id": {
+                "type": "string",
+                "example": "sdf987sdfc98syf79y9n8Vb0yVv"
+              }
+            }
+          }
+        }
+      },
 
-        "items": {
-          "type": "string"
+      "NoticesByCategoryResponse": {
+        "type": "object",
+        "properties": {
+          "notices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NoticesByCategoryObjectResponse"
+            }
+          }
+        }
+      },
+
+      "NoticesByCategoryObjectResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "id of pet",
+            "example": "641dd0168f83a3937bf63d1e"
+          },
+          "cataegory": {
+            "type": "string",
+            "description": "category for sale",
+            "example": "lost found"
+          },
+
+          "title": {
+            "type": "string",
+            "example": "Lost Pinguin"
+          },
+          "name": {
+            "type": "string",
+            "example": "Masyasya"
+          },
+          "bread": {
+            "type": "string",
+            "example": "mperial Pinguin"
+          },
+          "sex": {
+            "type": "string",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "example": "Narniya"
+          },
+          "imgUrl": {
+            "type": "string",
+            "example": "http://res.cloudinary.com/dwnz8nya4/image/d69ec67.jpg"
+          },
+          "owner": {
+            "type": "string",
+            "description": "owner's id",
+            "example": "641daf7632873642d30f8c2d"
+          }
         }
       }
     },

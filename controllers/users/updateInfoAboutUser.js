@@ -35,8 +35,8 @@ const { filename, format, path } = req.file;
       const error = new Error(`User with id=${id} not found`);
       error.status = 404;
       throw error;
-    }
-    
+  }
+   
     res.status(201).json({
     status: "success",
       code: 201,
