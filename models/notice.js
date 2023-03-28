@@ -71,9 +71,9 @@ const joiAddNoticeSchema = Joi.object({
   category: Joi.string()
     .valid("sell", "in-good-hands", "lost-found")
     .required(),
-  price: Joi.string().min(1),
+  price: Joi.number().min(1),
   comments: Joi.string().min(8).max(120),
-  imgUrl: Joi.string()
+  imgUrl: Joi.object().required(),
 });
 
 const Notice = model("notice", noticeSchema);
