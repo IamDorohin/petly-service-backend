@@ -73,7 +73,6 @@ const joiAddNoticeSchema = Joi.object({
     .required(),
   price: Joi.number().min(1),
   comments: Joi.string().min(8).max(120),
-  imgUrl: Joi.object().required(),
 });
 
 const Notice = model("notice", noticeSchema);
