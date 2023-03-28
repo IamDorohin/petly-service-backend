@@ -64,7 +64,7 @@ const joiUserProfileSchema = Joi.object({
   city: Joi.string(),
   phone: Joi.string().min(10),
   birthday: Joi.string(),
-  photo: Joi.string(),
+  photo: Joi.object(),
 });
 
 const User = model("user", userSchema);
