@@ -1,12 +1,18 @@
 const { Pets } = require("../../models");
 
 const showProfileAndPets = async (req, res, next) => {
-
-  const { _id: owner, email, name, birthday, city, phone  } = req.user;
-
+  const {
+    _id: owner,
+    email,
+    name,
+    birthday,
+    city,
+    phone,
+    photo = "",
+  } = req.user;
 
   console.log(req.user);
-  
+
   try {
     const list = await Pets.find({ owner });
     res.json({
@@ -14,14 +20,14 @@ const showProfileAndPets = async (req, res, next) => {
       code: 200,
       data: {
         yourPets: list,
-        user:
-          {
-            name,
-            email,
-            birthday,
-            phone,
-            city,
-          }
+        user: {
+          name,
+          email,
+          birthday,
+          phone,
+          city,
+          photo,
+        },
       },
     });
   } catch (error) {
