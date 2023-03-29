@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, Types, SchemaType } = require("mongoose");
 const Joi = require("joi");
 
 const noticeSchema = Schema(
@@ -20,7 +20,7 @@ const noticeSchema = Schema(
       minLength: 2,
       maxLength: 16,
     },
-    birthdate: { type: Schema.Types.Date },
+    birthdate: { type: Date },
     breed: {
       type: String,
       minLength: 2,
@@ -64,7 +64,7 @@ const noticeSchema = Schema(
 const joiAddNoticeSchema = Joi.object({
   title: Joi.string().min(6).max(48).required(),
   name: Joi.string().min(2).max(16).required(),
-  birthday: Joi.date(),
+  birthdate: Joi.date(),
   breed: Joi.string().min(2).max(40).required(),
   location: Joi.string().min(3).required(),
   sex: Joi.string().valid("male", "female").required(),
