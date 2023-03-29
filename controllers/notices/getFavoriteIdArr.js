@@ -1,5 +1,5 @@
 const getFavoriteIdArr = (req, res) => {
-  const { favorite } = req.user;
+  const { favorite = [] } = req.user;
 
   res.json({
     status: "success",

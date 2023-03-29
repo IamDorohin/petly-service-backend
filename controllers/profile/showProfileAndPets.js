@@ -11,8 +11,6 @@ const showProfileAndPets = async (req, res, next) => {
     photo = "",
   } = req.user;
 
-  console.log(req.user);
-
   try {
     const list = await Pets.find({ owner });
     res.json({
