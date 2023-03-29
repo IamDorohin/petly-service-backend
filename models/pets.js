@@ -8,7 +8,7 @@ const petsSchema = Schema(
       minlength: 2,
       maxlength: 16,
     },
-    date: {
+    birthdate: {
       type: Date,
     },
     breed: {
@@ -36,7 +36,7 @@ const petsSchema = Schema(
 
 const joiPetsSchema = Joi.object({
   name: Joi.string().min(2).max(16).required(),
-  date: Joi.string().required(),
+  bithdate: Joi.date().required(),
   breed: Joi.string().min(2).max(16).required(),
   comments: Joi.string().min(2).max(120).required(),
 });
