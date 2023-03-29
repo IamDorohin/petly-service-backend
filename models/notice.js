@@ -20,7 +20,7 @@ const noticeSchema = Schema(
       minLength: 2,
       maxLength: 16,
     },
-    birthdate: { type: Date },
+    birthdate: { type: Schema.Types.Date },
     breed: {
       type: String,
       minLength: 2,
