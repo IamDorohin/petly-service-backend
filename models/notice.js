@@ -68,9 +68,7 @@ const joiAddNoticeSchema = Joi.object({
   breed: Joi.string().min(2).max(40).required(),
   location: Joi.string().min(3).required(),
   sex: Joi.string().valid("male", "female").required(),
-  category: Joi.string()
-    .valid("sell", "in-good-hands", "lost-found")
-    .required(),
+  category: Joi.string().valid("sell", "for-free", "lost-found").required(),
   price: Joi.number().min(1),
   comments: Joi.string().min(8).max(120),
 });
