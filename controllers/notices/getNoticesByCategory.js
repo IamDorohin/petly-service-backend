@@ -25,12 +25,14 @@ const getNoticesByCategory = async (req, res) => {
   }
 
   const notices = sortNoticesByDate(result);
+  const allItems = notices.length;
 
   res.json({
     status: "success",
     code: 200,
     data: {
       notices,
+      allItems,
     },
   });
 };
