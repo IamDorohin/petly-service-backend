@@ -19,13 +19,13 @@ const getNoticesByCategory = async (req, res) => {
     skip,
     limit: Number(limit),
   });
+  const allItems = await Notice.count(query);
 
   if (result.length === 0 || !category) {
     throw new NotFound("There is no notices in this category");
   }
-
+  console.log(allItems);
   const notices = sortNoticesByDate(result);
-  const allItems = notices.length;
 
   res.json({
     status: "success",
