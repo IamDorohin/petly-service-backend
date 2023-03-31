@@ -1,15 +1,11 @@
-const express = require('express');
+const express = require("express");
 // create route
 const router = express.Router();
 
+const { news: ctrl } = require("../../controllers");
+const { validation, ctrlWrapper } = require("../../middleWares");
+const { joiSchema } = require("../../models/news");
 
-const { news: ctrl } = require('../../controllers');
-const { validation, ctrlWrapper } = require('../../middleWares')
-const { joiSchema } = require('../../models/news');
-
-
-router.get('/', validation(joiSchema), ctrlWrapper(ctrl.getNews));
-
-
+router.get("/", validation(joiSchema), ctrlWrapper(ctrl.getNews));
 
 module.exports = router;

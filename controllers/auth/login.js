@@ -6,10 +6,8 @@ const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = process.env;
 
 const login = async (req, res) => {
-
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-
 
   if (!user) {
     throw new Unauthorized(`email ${email} not found`);
@@ -29,6 +27,13 @@ const login = async (req, res) => {
   res.json({
     status: "success",
     code: 200,
+    data: {
+      user: {
+        user: user.name,
+        email: user.email,
+        id: user._id,
+      },
+    },
     token,
   });
 };
