@@ -4,6 +4,7 @@ const cloudinary = require("cloudinary").v2;
 
 const updateInfoAboutUser = async (req, res) => {
   const { id, photo } = req.user;
+
   let photoUrl = "";
 
   if (!req.file) {

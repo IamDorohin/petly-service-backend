@@ -1,6 +1,6 @@
 const { Pets } = require("../../models");
 
-const removePet = async(req, res) =>{
+const removePet = async (req, res) => {
   try {
     const { petId } = req.params;
     const list = await Pets.findByIdAndRemove(petId);
