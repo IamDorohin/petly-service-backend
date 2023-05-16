@@ -4,8 +4,8 @@ const cors = require("cors");
 // transport names of variables to environment of variables
 require("dotenv").config();
 
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
 
 // crete server
 const app = express();
@@ -16,8 +16,7 @@ const newsRouter = require("./routes/api/news");
 const friendsRouter = require("./routes/api/our_friends");
 const usersRouter = require("./routes/api/users");
 const noticesRouter = require("./routes/api/notices");
-const profileRouter = require('./routes/api/profile');
-
+const profileRouter = require("./routes/api/profile");
 
 // way of getting info
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
@@ -36,7 +35,7 @@ app.use("/api/our_friends", friendsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/notices", noticesRouter);
-app.use('/api/profile', profileRouter);
+app.use("/api/profile", profileRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {

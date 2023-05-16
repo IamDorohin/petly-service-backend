@@ -5,7 +5,6 @@ const { NotFound, Conflict } = require("http-errors");
 const addNoticeToFavorites = async (req, res) => {
   const { noticeId } = req.params;
   const { id: userId } = req.user;
-  
 
   const notice = await Notice.findById(noticeId);
   const result = await User.findByIdAndUpdate(
