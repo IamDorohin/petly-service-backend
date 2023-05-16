@@ -10,7 +10,7 @@ const getNoticesTitleSearch = async (req, res) => {
   const result = await Notice.find({ title: { $search: query } }, "", {
     skip,
     limit: Number(limit),
-  });
+  }).sort({ createdAt: -1 });
 
   if (result.length === 0) {
     throw new NotFound("There is no notices by your query");
