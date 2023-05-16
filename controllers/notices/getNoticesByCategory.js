@@ -18,7 +18,7 @@ const getNoticesByCategory = async (req, res) => {
   const result = await Notice.find(query, "", {
     skip,
     limit: Number(limit),
-  });
+  }).sort({ createdAt: -1 });
   const allItems = await Notice.count(query);
 
   if (result.length === 0 || !category) {

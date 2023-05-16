@@ -23,6 +23,12 @@ const updateInfoAboutUser = async (req, res) => {
     fs.unlink(path);
   }
 
+  if (req.body?.photo?.photo === "") {
+    const publicId = photo.split("/").pop().split(".")[0];
+    cloudinary.uploader.destroy(publicId);
+    photoUrl = "";
+  }
+
   const result = await User.findByIdAndUpdate(
     id,
     {

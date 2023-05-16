@@ -10,7 +10,7 @@ const getNoticesByUser = async (req, res, next) => {
   const result = await Notice.find({ owner }, "", {
     skip,
     limit: Number(limit),
-  });
+  }).sort({ createdAt: -1 });
 
   if (result.length === 0) {
     throw new NotFound("You do not have any notices");
